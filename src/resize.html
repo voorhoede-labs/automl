@@ -1,0 +1,75 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <style>
+        nav {
+            margin-bottom: 40px;
+        }
+
+        template,
+        [data-image] {
+            display: none;
+        }
+
+        [data-image].enhanced {
+            display: block;
+        }
+
+        input {
+            display: block;
+            margin-bottom: 20px;
+        }
+    </style>
+
+</head>
+<body>
+<nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/resize.html">Resize with canvas</a></li>
+      <li><a href="/crop-and-resize.html">Crop and resize with smartcrop</a></li>
+      <li><a href="/get-user-media.html">Use live input and take screenshot</a></li>
+    </ul>
+</nav>
+
+<h1>Resizing images with quality loss using Canvas element</h1>
+
+<form data-form>
+    <label>
+        Choose image
+    <input name="image" type="file" accept="image/*" required/>
+    </label>
+
+    <label>
+        Max size
+        <input type="number" name="maxSize" value="250" required/>
+    </label>
+
+    <label>
+        Quality
+        <input type="number" max="1" min="0.1" name="quality" value="0.7" step="0.1" required/>
+    </label>
+    <input type="submit" value="Resize">
+</form>
+
+<div data-image data-image-original></div>
+
+<div data-image data-image-transformed></div>
+
+<template data-image-original-template>
+    <h2>Original: {{imageWidth}}x{{imageHeight}} at {{imageQuality}} quality</h2>
+    <h3>File size: {{imageFilesize}}</h3>
+    <img src="{{imageSrc}}" alt="" />
+</template>
+
+<template data-image-transformed-template>
+    <h2>Optimised: scaled to {{imageWidth}}x{{imageHeight}} at {{imageQuality}} quality</h2>
+    <h3>File size: {{imageFilesize}}</h3>
+    <img src="{{imageSrc}}" alt="" />
+</template>
+
+<script src="/components/resize.js"></script>
+</body>
+</html>

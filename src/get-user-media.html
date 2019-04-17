@@ -1,0 +1,120 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <style>
+    nav {
+      margin-bottom: 40px;
+    }
+
+    img {
+      max-width: 90vw;
+    }
+
+    template,
+    [data-image] {
+      display: none;
+    }
+
+    [data-image].enhanced {
+      display: block;
+    }
+
+    input {
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .video-crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 100px;
+      height: 100px;
+      border: 5px solid yellow;
+      border-radius: 50%;
+    }
+
+  </style>
+
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/resize.html">Resize with canvas</a></li>
+    <li><a href="/crop-and-resize.html">Crop and resize with smartcrop</a></li>
+    <li><a href="/get-user-media.html">Use live input and take screenshot</a></li>
+  </ul>
+</nav>
+
+<h1>Screenshot with getUserMedia and crop and resize with smartcrop.js</h1>
+
+<div class="video-wrapper">
+  <video autoplay muted playsinline data-video-input></video>
+  <div class="video-crosshair"></div>
+</div>
+
+<canvas style="display:none;" data-canvas></canvas>
+<img data-screenshot-image />
+
+<form data-form>
+
+  <button type="button" data-capture-video>Capture video</button>
+  <button type="button" disabled data-screenshot-button>Take screenshot</button>
+  <button type="button" disabled data-screenshot-flip>Flip camera</button>
+
+  <label>
+    Max size
+    <input type="number" name="maxSize" value="250" required/>
+  </label>
+
+  <label>
+    Quality
+    <input type="number" max="1" min="0.1" name="quality" value="0.7" step="0.1" required/>
+  </label>
+
+</form>
+
+<div data-image data-image-original></div>
+
+<div data-image data-image-transformed></div>
+
+<template data-image-original-template>
+  <h2>Original: {{imageWidth}}x{{imageHeight}} at {{imageQuality}} quality</h2>
+  <h3>File size: {{imageFilesize}}</h3>
+  <img src="{{imageSrc}}" alt="" />
+</template>
+
+<template data-image-transformed-template>
+  <h2>Optimised: scaled to {{imageWidth}}x{{imageHeight}} at {{imageQuality}} quality</h2>
+  <h3>File size: {{imageFilesize}}</h3>
+  <img src="{{imageSrc}}" alt="" />
+</template>
+
+<script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
+<script>
+  var config = {
+    apiKey: process.env.API_KEY,
+    authDomain: "mentos-ml-exp-235009.firebaseapp.com",
+    databaseURL: "https://mentos-ml-exp-235009.firebaseio.com",
+    projectId: "mentos-ml-exp-235009",
+    storageBucket: "mentos-ml-exp-235009.appspot.com",
+    messagingSenderId: "420632677597"
+  };
+
+  firebase.initializeApp(config);
+</script>
+<script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-functions.js"></script>
+<script src="/components/smartcrop.js"></script>
+<script src="/components/get-user-media.js"></script>
+</body>
+</html>
