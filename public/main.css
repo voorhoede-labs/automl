@@ -1,0 +1,65 @@
+body {
+  background: #ECEFF1;
+  color: rgba(0,0,0,0.87);
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  margin: 25px;
+}
+
+#preview img {
+  width: 300px;
+}
+
+i {
+  margin: 10px;
+}
+
+div.mdl-layout__header-row {
+  margin-left: 10px;
+  padding: 0;
+}
+
+input[data-file-select] {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+div.demo-card-square.mdl-card.mdl-shadow--2dp {
+  width: 100%;
+  text-align: center;
+  min-height: 300px;
+}
+
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  background: url('../assets/demos/welcome_card.jpg') center / cover;
+}
+
+.mdl-card__title img {
+  object-fit: contain;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+div[data-prediction-text] {
+  color: rgb(33,150,243);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+div[data-card] {
+  display: none;
+}
+
+.mdl-progress.progress-bar {
+  display: none;
+}
+
+.mdl-progress.progress-bar.show {
+  display: block;
+}
+.mld-card {
+  width: 100%;
+}

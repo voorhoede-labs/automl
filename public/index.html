@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Challenge Detector</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css" />
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Challenge Detector</span>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation upload-btn">
+            <input type="file" data-cloud-upload id="cloud-upload" multiple accept="image/*" style="display:none"
+              size="1400000"
+              accept=".png, .jpeg, .gif"/>
+            <a class="mdl-navigation__link" data-file-select id="file-select">Upload an photo</a>
+          </nav>
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        <div class="mdl-grid">
+          <div>
+            <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate progress-bar" data-progressbar></div>
+            <p data-status></p>
+          </div>
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-cell mdl-cell--4-col">
+            <div class="demo-card-square mdl-card mdl-shadow--2dp card" data-card>
+              <div class="mdl-card__supporting-text" data-prediction-text></div>
+              <div class="mdl-card__actions mdl-card--border" data-weather-summary></div>
+              <div class="mdl-card__title" data-img-perdicted></div>
+            </div>
+          </div>
+          <div class="mdl-layout-spacer"></div>
+        </div>
+        <canvas
+          id="canvas"
+          width="200"
+          height="300">
+        </canvas>
+      </main>
+    </div>
+  </body>
+  <!-- update the version number as needed -->
+  <script defer src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="init.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/5.9.3/firebase-functions.js"></script>
+  <script defer src="main.js"></script>
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</html>
