@@ -1,0 +1,16 @@
+{
+  "name": "mentos-say-hello",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^5.9.4"
+  },
+  "devDependencies": {
+    "serve": "^11.0.0"
+  }
+}
