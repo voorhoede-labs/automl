@@ -16,6 +16,8 @@
     const canvasElement = document.querySelector('[data-canvas]');
     const imageElement = document.querySelector('[data-screenshot-image]');
     const flipCameraButton = document.querySelector('[data-screenshot-flip]');
+    const qualityInput = document.querySelector('[data-quality]');
+    const maxSizeInput = document.querySelector('[data-max-size]');
     let useRearCamera = true;
 
     captureVideoButton.addEventListener('click', captureVideo);
@@ -56,6 +58,8 @@
     }
 
     function takeScreenshot() {
+      const quality = parseFloat(qualityInput.value);
+      const maxSize = parseFloat(maxSizeInput.value);
       canvasElement.width = videoElement.videoWidth;
       canvasElement.height = videoElement.videoHeight;
       canvasElement.getContext('2d').drawImage(videoElement, 0, 0);
@@ -64,28 +68,28 @@
       image.src = canvasElement.toDataURL('image/webp'); // Non supporting browsers will fall back to image/png
 
       image.onload = () => {
-        cropImage(image);
+        cropImage(image, maxSize, quality);
       }
     }
 
-    function cropImage(img) {
-      smartcrop.crop(img, {width: 250, height: 250}).then((result) => {
-
+    function cropImage(img, maxSize, quality) {
+      smartcrop.crop(img, { width: maxSize, height: maxSize }).then((result) => {
         const cropWidth = result.topCrop.width;
         const cropHeight = result.topCrop.height;
 
-        canvasElement.width = 250;
-        canvasElement.height = 250;
+        canvasElement.width = maxSize;
+        canvasElement.height = maxSize;
 
         canvasElement.getContext('2d').drawImage(
           img,
           result.topCrop.x, result.topCrop.y, // Start at x pixels from the left and y from the top of the image (crop),
           cropWidth, cropHeight,              // "Get" a w * h area from the source image (crop),
           0, 0,                               // Place the result at 0, 0 in the canvas,
-          250, 250                            // size the cropped image
+          maxSize, maxSize                    // size the cropped image
         );
 
-        const dataURL = canvasElement.toDataURL('image/jpeg', .7);
+        const dataURL = canvasElement.toDataURL('image/jpeg', quality);
+        console.log(dataURL.length);
         imageElement.src = dataURL;
 
         uploadImage(dataURL)
