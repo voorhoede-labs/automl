@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "prestart": "npm run build",
-    "start": "http-server './dist/' -c-1 -o -p 1451",
+    "start": "http-server './dist/' -c-1 -p 1451",
     "prebuild": "rimraf dist/ && mkdirp dist/",
     "build": "run-s build:*",
     "build:html": "node scripts/build-html.js",
