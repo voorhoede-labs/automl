@@ -75,26 +75,27 @@
     }
 
     function cropImage(img, maxSize, quality) {
-      smartcrop.crop(img, { width: maxSize, height: maxSize }).then((result) => {
-        const cropWidth = result.topCrop.width;
-        const cropHeight = result.topCrop.height;
+      const cropWidth = 200;
+      const cropHeight = 200;
 
-        canvasElement.width = maxSize;
-        canvasElement.height = maxSize;
+      canvasElement.width = maxSize;
+      canvasElement.height = maxSize;
 
-        canvasElement.getContext('2d').drawImage(
-          img,
-          result.topCrop.x, result.topCrop.y, // Start at x pixels from the left and y from the top of the image (crop),
-          cropWidth, cropHeight,              // "Get" a w * h area from the source image (crop),
-          0, 0,                               // Place the result at 0, 0 in the canvas,
-          maxSize, maxSize                    // size the cropped image
-        );
+      const horizontalCenter = (img.width / 2) - (cropWidth / 2);
+      const verticalCenter = (img.height / 2) - (cropHeight / 2);
 
-        const dataURL = canvasElement.toDataURL('image/jpeg', quality);
-        imageElement.src = dataURL;
+      canvasElement.getContext('2d').drawImage(
+        img,
+        horizontalCenter, verticalCenter,   // Start at x pixels from the left and y from the top of the image (crop),
+        cropWidth, cropHeight,              // "Get" a w * h area from the source image (crop),
+        0, 0,                               // Place the result at 0, 0 in the canvas,
+        maxSize, maxSize                    // size the cropped image
+      );
 
-        uploadImage(dataURL)
-      })
+      const dataURL = canvasElement.toDataURL('image/jpeg', quality);
+      imageElement.src = dataURL;
+
+      uploadImage(dataURL)
     }
 
     function uploadImage(dataURL) {
@@ -117,7 +118,7 @@
 
             showToastMessage()
           } else {
-           throw 'no prediction';
+            throw 'no prediction';
           }
         })
         .catch(e => {
