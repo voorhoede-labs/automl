@@ -12,15 +12,6 @@
       max-width: 90vw;
     }
 
-    template,
-    [data-image] {
-      display: none;
-    }
-
-    [data-image].enhanced {
-      display: block;
-    }
-
     input {
       display: block;
       margin-bottom: 20px;
@@ -43,6 +34,29 @@
       border-radius: 50%;
     }
 
+    .prediction {
+      position: fixed;
+      z-index: 100;
+      bottom: 40px;
+      left: 50%;
+      width: calc( 100% - 32px);
+      max-width: 40rem;
+      padding: 16px;
+      border-radius: 5px;
+      box-shadow: 0 20px 30px 0 rgba(0,0,0,0.3);
+      background: black;
+      color: white;
+      text-align: center;
+
+      transform: translate(-50%, 200%);
+      opacity: 0;
+      transition: all .25s ease-in;
+    }
+
+    .prediction.active {
+      transform: translate(-50%, 0%);
+      opacity: 1;
+    }
   </style>
 
 </head>
@@ -74,31 +88,18 @@
 
   <label>
     Max size
-    <input type="number" name="maxSize" value="250" required/>
+    <input type="number" name="maxSize" value="250" data-max-size />
   </label>
 
   <label>
     Quality
-    <input type="number" max="1" min="0.1" name="quality" value="0.7" step="0.1" required/>
+    <input type="number" max="1" min="0.1" name="quality" value="0.7" step="0.1" data-quality/>
   </label>
 
 </form>
 
-<div data-image data-image-original></div>
-
-<div data-image data-image-transformed></div>
-
-<template data-image-original-template>
-  <h2>Original: {{imageWidth}}x{{imageHeight}} at {{imageQuality}} quality</h2>
-  <h3>File size: {{imageFilesize}}</h3>
-  <img src="{{imageSrc}}" alt="" />
-</template>
-
-<template data-image-transformed-template>
-  <h2>Optimised: scaled to {{imageWidth}}x{{imageHeight}} at {{imageQuality}} quality</h2>
-  <h3>File size: {{imageFilesize}}</h3>
-  <img src="{{imageSrc}}" alt="" />
-</template>
+<div class="prediction" data-prediction></div>
+<template data-prediction-template>Looks like  {{prediction}}....<br/>well i'm {{score}}% certain</template>
 
 <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
 <script>
@@ -114,7 +115,7 @@
   firebase.initializeApp(config);
 </script>
 <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-functions.js"></script>
-<script src="/components/smartcrop.js"></script>
-<script src="/components/get-user-media.js"></script>
+<script src="/assets/js/smartcrop.js"></script>
+<script src="/assets/js/get-user-media.js"></script>
 </body>
 </html>
