@@ -18,6 +18,8 @@
     const flipCameraButton = document.querySelector('[data-screenshot-flip]');
     const qualityInput = document.querySelector('[data-quality]');
     const maxSizeInput = document.querySelector('[data-max-size]');
+    const predictionElement = document.querySelector('[data-prediction]');
+    const predictionTemplate = document.querySelector('[data-prediction-template]');
     let useRearCamera = true;
 
     captureVideoButton.addEventListener('click', captureVideo);
@@ -89,7 +91,6 @@
         );
 
         const dataURL = canvasElement.toDataURL('image/jpeg', quality);
-        console.log(dataURL.length);
         imageElement.src = dataURL;
 
         uploadImage(dataURL)
@@ -100,10 +101,29 @@
       const callAutoMl = firebase.functions().httpsCallable('callAutoML');
       callAutoMl({ img: dataURL.split(',')[1] })
         .then(response => {
-          console.log(response)
+          if (response.data.length && response.data[0].payload.length) {
+            const prediction = response.data[0].payload[0].displayName;
+            const score = parseInt(response.data[0].payload[0].classification.score * 100);
+
+            if (prediction === 'None_of_the_above') {
+              predictionElement.innerHTML = 'I don\'t think that\'s a challenge, I\'m ' + score + '% certain';
+            } else if (prediction === 'multiple') {
+              predictionElement.innerHTML = 'Are you trying to fool me with multiple challenges?!, I\'m ' + score + '% certain';
+            } else {
+              predictionElement.innerHTML = predictionTemplate.innerHTML
+                .replace('{{prediction}}', prediction)
+                .replace('{{score}}', score);
+            }
+
+            showToastMessage()
+          } else {
+           throw 'no prediction';
+          }
         })
         .catch(e => {
-          console.error(e)
+          console.error(e);
+          predictionElement.innerHTML = 'I don\'t think that\'s a challenge';
+          showToastMessage();
         });
     }
 
@@ -112,6 +132,14 @@
       videoElement.srcObject = null;
       useRearCamera = !useRearCamera;
       captureVideo();
+    }
+
+    function showToastMessage() {
+      predictionElement.classList.add('active');
+
+      setTimeout(() => {
+        predictionElement.classList.remove('active')
+      }, 5000);
     }
   }
 })();
