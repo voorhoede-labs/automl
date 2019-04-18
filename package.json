@@ -10,8 +10,8 @@
     "build:html": "node scripts/build-html.js",
     "build:assets": "ncp './src/assets/' './dist/assets/'",
     "watch": "run-p watch:*",
-    "watch:html": "chokidar 'src/**/*.html' --command 'npm run build:html'",
-    "watch:assets": "chokidar 'src/assets/**/*.*' --command 'npm run build:assets'"
+    "watch:html": "chokidar 'src/**/*.html' --debounce 750 --command 'npm run build:html'",
+    "watch:assets": "chokidar 'src/assets/**/*.*' --debounce 750 --command 'npm run build:assets'"
   },
   "author": "",
   "license": "ISC",
