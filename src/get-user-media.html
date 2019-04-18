@@ -84,22 +84,6 @@
 
 </form>
 
-<div data-image data-image-original></div>
-
-<div data-image data-image-transformed></div>
-
-<template data-image-original-template>
-  <h2>Original: {{imageWidth}}x{{imageHeight}} at {{imageQuality}} quality</h2>
-  <h3>File size: {{imageFilesize}}</h3>
-  <img src="{{imageSrc}}" alt="" />
-</template>
-
-<template data-image-transformed-template>
-  <h2>Optimised: scaled to {{imageWidth}}x{{imageHeight}} at {{imageQuality}} quality</h2>
-  <h3>File size: {{imageFilesize}}</h3>
-  <img src="{{imageSrc}}" alt="" />
-</template>
-
 <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
 <script>
   var config = {
@@ -114,7 +98,7 @@
   firebase.initializeApp(config);
 </script>
 <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase-functions.js"></script>
-<script src="/components/smartcrop.js"></script>
-<script src="/components/get-user-media.js"></script>
+<script src="/assets/js/smartcrop.js"></script>
+<script src="/assets/js/get-user-media.js"></script>
 </body>
 </html>
