@@ -1,6 +1,6 @@
 const project = 'mentos-ml-exp-235009';
 const region = 'us-central1';
-const automl_model = 'ICN914957933006540255';
+const automl_model = 'ICN640900906294116991';
 const automl = require('@google-cloud/automl');
 const predictionClient = new automl.PredictionServiceClient();
 // Firebase libraries
@@ -37,6 +37,6 @@ function callAutoMLAPI(b64img) {
 
 exports.callAutoML = functions
   .region(region)
-  .https.onCall((data, context) => {
+  .https.onCall((data) => {
     return callAutoMLAPI(data.img)
   });
