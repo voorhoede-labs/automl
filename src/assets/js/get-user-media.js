@@ -95,10 +95,29 @@
       const dataURL = canvasElement.toDataURL('image/jpeg', quality);
       imageElement.src = dataURL;
 
-      uploadImage(dataURL)
+      canvasElement.toBlob(blob => {
+        uploadToStorage(blob)
+          .then(() => console.log('created blob and intiate uploadToStorage function'))
+          .catch(err => console.error(err))
+        ;
+      })
+
+      getPerdiction(dataURL)
     }
 
-    function uploadImage(dataURL) {
+    function uploadToStorage(blob) {
+      const currentTimeStamp = new Date()
+      const storageRef = firebase.storage().ref();
+      const imageRef = storageRef.child(String(currentTimeStamp.getTime()));
+
+      return imageRef.put(blob)
+        .then(() => {
+          console.log('uploaded to cloud storage', imageRef)
+        })
+        .catch(err => console.error('failed uploading to cloud storage',err))
+    }
+
+    function getPerdiction(dataURL) {
       const callAutoMl = firebase.functions().httpsCallable('callAutoML');
       callAutoMl({ img: dataURL.split(',')[1] })
         .then(response => {
