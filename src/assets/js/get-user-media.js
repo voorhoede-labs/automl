@@ -108,7 +108,7 @@
     function uploadToStorage(blob) {
       const currentTimeStamp = new Date()
       const storageRef = firebase.storage().ref();
-      const imageRef = storageRef.child(String(currentTimeStamp.getTime()));
+      const imageRef = storageRef.child(currentTimeStamp.getTime() + '.jpg');
 
       return imageRef.put(blob)
         .then(() => {
