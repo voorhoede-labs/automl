@@ -5,3 +5,5 @@
 .firebase
 .env
 dist/
+
+dataset/

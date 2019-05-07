@@ -1,6 +1,6 @@
 const project = 'mentos-ml-exp-235009';
 const region = 'us-central1';
-const automl_model = 'ICN255147187705696850';
+const automl_model = 'ICN8080937224687214689';
 const automl = require('@google-cloud/automl');
 const predictionClient = new automl.PredictionServiceClient();
 // Firebase libraries
