@@ -12,6 +12,7 @@
   function useGetUserMedia() {
     const captureVideoButton = document.querySelector('[data-capture-video]');
     const screenshotButton = document.querySelector('[data-screenshot-button]');
+    const videoCrosshair = document.querySelector('[data-video-crosshair]');
     const videoElement = document.querySelector('[data-video-input]');
     const canvasElement = document.querySelector('[data-canvas]');
     const imageElement = document.querySelector('[data-screenshot-image]');
@@ -19,6 +20,7 @@
     const qualityInput = document.querySelector('[data-quality]');
     const maxSizeInput = document.querySelector('[data-max-size]');
     const predictionElement = document.querySelector('[data-prediction]');
+    const pageHeader = document.querySelector('[data-header]');
     const predictionTemplate = document.querySelector('[data-prediction-template]');
     let useRearCamera = true;
 
@@ -39,7 +41,10 @@
     }
 
     function onUserMediaSuccess(stream) {
-
+      pageHeader.classList.add('is-hidden');
+      videoCrosshair.classList.remove('is-hidden');
+      videoElement.classList.remove('is-hidden');
+      captureVideoButton.classList.add('is-hidden');
       // enable flip camera button if supported and if multiple cameras available
       navigator.mediaDevices.enumerateDevices()
         .then(devices => devices.filter(device => device.kind === 'videoinput'))
@@ -95,12 +100,12 @@
       const dataURL = canvasElement.toDataURL('image/jpeg', quality);
       imageElement.src = dataURL;
 
-      canvasElement.toBlob(blob => {
-        uploadToStorage(blob)
-          .then(() => console.log('created blob and intiate uploadToStorage function'))
-          .catch(err => console.error(err))
-        ;
-      })
+      // canvasElement.toBlob(blob => {
+      //   uploadToStorage(blob)
+      //     .then(() => console.log('created blob and intiate uploadToStorage function'))
+      //     .catch(err => console.error(err))
+      //   ;
+      // })
 
       getPerdiction(dataURL)
     }
