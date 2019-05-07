@@ -100,18 +100,18 @@
       const dataURL = canvasElement.toDataURL('image/jpeg', quality);
       imageElement.src = dataURL;
 
-      // canvasElement.toBlob(blob => {
-      //   uploadToStorage(blob)
-      //     .then(() => console.log('created blob and intiate uploadToStorage function'))
-      //     .catch(err => console.error(err))
-      //   ;
-      // })
+      canvasElement.toBlob(blob => {
+        uploadToStorage(blob)
+          .then(() => console.log('created blob and intiate uploadToStorage function'))
+          .catch(err => console.error(err))
+        ;
+      });
 
       getPerdiction(dataURL)
     }
 
     function uploadToStorage(blob) {
-      const currentTimeStamp = new Date()
+      const currentTimeStamp = new Date();
       const storageRef = firebase.storage().ref();
       const imageRef = storageRef.child(currentTimeStamp.getTime() + '.jpg');
 
