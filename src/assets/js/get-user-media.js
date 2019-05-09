@@ -41,10 +41,10 @@
     }
 
     function onUserMediaSuccess(stream) {
-      pageHeader.classList.add('is-hidden');
-      videoCrosshair.classList.remove('is-hidden');
-      videoElement.classList.remove('is-hidden');
-      captureVideoButton.classList.add('is-hidden');
+      // pageHeader.classList.add('is-hidden');
+      // videoCrosshair.classList.remove('is-hidden');
+      // videoElement.classList.remove('is-hidden');
+      // captureVideoButton.classList.add('is-hidden');
       // enable flip camera button if supported and if multiple cameras available
       navigator.mediaDevices.enumerateDevices()
         .then(devices => devices.filter(device => device.kind === 'videoinput'))
